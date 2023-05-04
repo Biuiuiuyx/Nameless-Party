@@ -107,6 +107,23 @@ public class Map : MonoBehaviour
     }
 
 	/// <summary>
+	/// 查找上一个格子
+	/// </summary>
+	/// <param name="_gid"></param>
+	/// <returns></returns>
+	public Grid FindLast(int _gid)
+    {
+        foreach (var g in grids.Values)
+        {
+			if (g.NextId == _gid)
+            {
+				return g;
+            }
+        }
+		return null;
+    }
+
+	/// <summary>
 	/// 查询用户
 	/// </summary>
 	public User GetUser(Camp _camp)

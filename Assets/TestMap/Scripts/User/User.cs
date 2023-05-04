@@ -78,6 +78,34 @@ public class User
     }
 
     /// <summary>
+    /// 后退几步
+    /// </summary>
+    /// <param name="_step"></param>
+    public void RetreatStep(int _step)
+    {
+        if (_step > 0)
+        {
+            // 剩余步数
+            int remainStep = _step;
+            Map m = Map.Instance;
+            Grid g = m.GetGrid(CurGridId);
+            List<Vector2> way = new List<Vector2>();
+            while (remainStep > 0)
+            {
+                g = m.FindLast(g.GridId);
+                way.Add(g.transform.position);
+                remainStep--;
+            }
+
+            // 所有格子走完，现在g是最后一个位置
+            if (way.Count > 0)
+            {
+                chess.OnMove(way, g.GridId);
+            }
+        }
+    }
+
+    /// <summary>
     /// 增加金币
     /// </summary>
     public void AddGold(int _amount)

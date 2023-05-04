@@ -30,18 +30,18 @@ public class TipAction : Actionable
         if (g.Type == GridType.Back)
         {
             // 退格
-            DialogueManager.Instance.ShowDialogue(new DialogueData($"<{user.Name()}>要退{g.Value}格，制作中未完成"), () =>
-            {
-                Finish();
-            });
+            UIWarn.Instance.ShowWarn($"Take {g.Value} steps back", .5f);
+            u.RetreatStep(g.Value);
+            // 等待棋子移动完毕
+            yield return new WaitUntil(() => u.StepCompleted);
+            Finish();
             yield break;
         }
         else if (g.Type == GridType.Game1)
         {
-            DialogueManager.Instance.ShowDialogue(new DialogueData($"<{user.Name()}>触发了[{g.Type.Name()}]，制作中未完成"), () =>
-            {
-                Finish();
-            });
+            var p1 = UIManager.Instance.Open<RockPaperScissorsPanel>();
+            yield return new WaitUntil(() => p1.Completed);
+            Finish();
             yield break;
         }
         else if (g.Type == GridType.Game2)
