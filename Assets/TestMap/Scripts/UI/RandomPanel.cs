@@ -20,12 +20,13 @@ public class RandomPanel : UIBase
     private bool run = false;
     private float speed = 10000;
     private int dice;
+    private bool played;
 
     // Start is called before the first frame update
     void Start()
     {
         ani.gameObject.SetActive(false);
-        btn.onClick.AddListener(Click);
+        //btn.onClick.AddListener(Click);
     }
 
     /// <summary>
@@ -47,7 +48,14 @@ public class RandomPanel : UIBase
 
     private void Update()
     {
-        if (!run) return;
+        if (!played)
+        {
+            if (Input.anyKeyDown)
+            {
+                Click();
+            }
+            return;
+        }
         // 每帧旋转
         rect.Rotate(Vector3.forward, speed * Time.deltaTime);
     }
@@ -57,6 +65,7 @@ public class RandomPanel : UIBase
     /// </summary>
     private void Click()
     {
+        played = true;
         AudioManager.Instance.Play("dice");
         ani.gameObject.SetActive(true);
         ani.SetTrigger("Run");

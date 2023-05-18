@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 玩家
+/// 剪刀石头布玩家
 /// </summary>
 public class RockPaperScissorsPlayer : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public class RockPaperScissorsPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Active) return;
+        if (!Active) return;
         foreach (var k in types)
         {
             if (Input.GetKeyDown(k.Key))

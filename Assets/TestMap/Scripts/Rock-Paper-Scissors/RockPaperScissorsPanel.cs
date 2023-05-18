@@ -104,11 +104,13 @@ public class RockPaperScissorsPanel : UIBase
         yield return new WaitForSeconds(1);
         tip.text = "";
         mask.SetActive(false);
+        p1.Active = true;
+        p2.Active = true;
     }
 
     IEnumerator DelayResult()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(.6f);
         p1pic.sprite = Resources.Load<Sprite>($"Sprite/{p1type}");
         p1pic.gameObject.SetActive(true);
         p1tip.SetActive(false);

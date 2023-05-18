@@ -31,6 +31,7 @@ public class TipAction : Actionable
         {
             // 退格
             UIWarn.Instance.ShowWarn($"Take {g.Value} steps back", .5f);
+            yield return new WaitForSeconds(.5f);
             u.RetreatStep(g.Value);
             // 等待棋子移动完毕
             yield return new WaitUntil(() => u.StepCompleted);
@@ -46,10 +47,9 @@ public class TipAction : Actionable
         }
         else if (g.Type == GridType.Game2)
         {
-            DialogueManager.Instance.ShowDialogue(new DialogueData($"<{user.Name()}>触发了[{g.Type.Name()}]，制作中未完成"), () =>
-            {
-                Finish();
-            });
+            var p1 = UIManager.Instance.Open<ButtonRacePanel>();
+            yield return new WaitUntil(() => p1.Completed);
+            Finish();
             yield break;
         }
         else if (g.Type == GridType.Game3)
