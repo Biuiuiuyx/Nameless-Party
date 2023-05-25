@@ -42,14 +42,19 @@ public enum GridType
 	/// <summary>
 	/// 终点
 	/// </summary>
-	Destination = 8
+	Destination = 8,
+
+	/// <summary>
+	/// 随机游戏
+	/// </summary>
+	Game = 9
 }
 
 public static class GridTypeExtension
 {
 	private static string[] names = new string[]
 	{
-		"空地","启动","退格","小游戏1","小游戏2","小游戏3","小游戏4","终点"
+		"空地","启动","退格","小游戏1","小游戏2","小游戏3","小游戏4","终点","随机游戏"
 	};
 
 	private static Color[] colors = new Color[]
@@ -61,7 +66,8 @@ public static class GridTypeExtension
 		Color.yellow,
 		Color.cyan,
 		Color.cyan,
-		new Color(.8f, 0, .8f, 1)
+		new Color(.8f, 0, .8f, 1),
+		Color.yellow
 	};
 
 	public static string Name(this GridType self)

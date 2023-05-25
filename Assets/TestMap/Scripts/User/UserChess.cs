@@ -122,7 +122,7 @@ public class UserChess : MonoBehaviour
 	{
 		// 经过起点加1000
 		//Map.Instance.GetUser(Camp).AddGold(1000);
-		UIWarn.Instance.ShowWarn($"[{camp.Name()}]经过了起点！");
+		//UIWarn.Instance.ShowWarn($"[{camp.Name()}]经过了起点！");
 		yield return null;
 		doing = false;
 		ToNext();

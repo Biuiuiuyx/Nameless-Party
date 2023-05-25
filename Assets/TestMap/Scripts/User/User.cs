@@ -16,6 +16,7 @@ public class User
     public UserStep Step { get; private set; }              // 当前步骤
     public int StopRound { get; set; }
     public bool StepCompleted => chess.StepCompleted;
+    public bool Reach { get; private set; } = false;
 
     private Dictionary<UserStep, Actionable> actions;       // 行为步骤集合
     private UserChess chess;
@@ -66,6 +67,10 @@ public class User
                     chess.OnMove(way, g.GridId);
                     way.Clear();
                     chess.GetOriginGold();
+                }else if (g.Type == GridType.Destination)
+                {
+                    Reach = true;
+                    break;
                 }
             }
 

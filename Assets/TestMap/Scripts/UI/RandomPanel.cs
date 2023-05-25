@@ -17,7 +17,7 @@ public class RandomPanel : UIBase
 
     public override UILayer Layer => UILayer.Mask;
     public bool Completed { get; private set; }
-    private bool run = false;
+    //private bool run = false;
     private float speed = 10000;
     private int dice;
     private bool played;
@@ -70,7 +70,7 @@ public class RandomPanel : UIBase
         ani.gameObject.SetActive(true);
         ani.SetTrigger("Run");
         btn.gameObject.SetActive(false);
-        run = true;
+        //run = true;
 
         StartCoroutine(Run());
     }
@@ -82,7 +82,7 @@ public class RandomPanel : UIBase
         speed = 1200;
         yield return new WaitForSeconds(.2f);
         speed = 0;
-        run = false;
+        //run = false;
         rect.localEulerAngles = Vector3.zero;
         //rect.DOLocalRotate(Vector3.zero, 0.2f);
         yield return new WaitForSeconds(1f);

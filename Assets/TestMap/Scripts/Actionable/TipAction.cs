@@ -2,6 +2,7 @@
 using GameProject;
 using System.Collections;
 using UnityEngine;
+using Random = GameProject.Random;
 
 /// <summary>
 /// 提示行为
@@ -54,26 +55,50 @@ public class TipAction : Actionable
         }
         else if (g.Type == GridType.Game3)
         {
-            DialogueManager.Instance.ShowDialogue(new DialogueData($"<{user.Name()}>触发了[{g.Type.Name()}]，制作中未完成"), () =>
-            {
-                Finish();
-            });
+            var p1 = UIManager.Instance.Open<ReactionSpeedPanel>();
+            yield return new WaitUntil(() => p1.Completed);
+            Finish();
             yield break;
         }
         else if (g.Type == GridType.Game4)
         {
-            DialogueManager.Instance.ShowDialogue(new DialogueData($"<{user.Name()}>触发了[{g.Type.Name()}]，制作中未完成"), () =>
+            var p1 = UIManager.Instance.Open<StretchPanel>();
+            yield return new WaitUntil(() => p1.Completed);
+            Finish();
+            yield break;
+        }else if (g.Type == GridType.Game)
+        {
+            int r = Random.GetValue(0, 4);
+            IGameCompleted p;
+            switch (r)
             {
-                Finish();
-            });
+                case 0:
+                    p = UIManager.Instance.Open<RockPaperScissorsPanel>();
+                    break;
+                case 1:
+                    p = UIManager.Instance.Open<ButtonRacePanel>();
+                    break;
+                case 2:
+                    p = UIManager.Instance.Open<ReactionSpeedPanel>();
+                    break;
+                case 3:
+                    p = UIManager.Instance.Open<StretchPanel>();
+                    break;
+                default:
+                    p = UIManager.Instance.Open<StretchPanel>();
+                    break;
+            }
+            yield return new WaitUntil(() => p.Completed);
+            Finish();
             yield break;
         }
         else if (g.Type == GridType.Destination)
         {
-            DialogueManager.Instance.ShowDialogue(new DialogueData($"<{user.Name()}>抵达了终点，制作中未完成"), () =>
-            {
-                Finish();
-            });
+            //DialogueManager.Instance.ShowDialogue(new DialogueData($"<{user.Name()}>抵达了终点，制作中未完成"), () =>
+            //{
+            //    Finish();
+            //});
+            Finish();
             yield break;
         }
         else

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 按键比赛界面
 /// </summary>
-public class ButtonRacePanel : UIBase
+public class ButtonRacePanel : UIBase, IGameCompleted
 {
     [SerializeField] Text p1key;
     [SerializeField] Text p2key;

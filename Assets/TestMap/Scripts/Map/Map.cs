@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
     [SerializeField] Transform gridContainer;       // 格子容器
     [SerializeField] Grid origins;                  // 起点
 	[SerializeField] Transform chessContainer;
-	[SerializeField] int goal = 3500;				// 胜利目标金额
+	//[SerializeField] int goal = 3500;				// 胜利目标金额
 
     public int CurRound { get; private set; }       // 当前回合数
     public User CurUser { get; private set; }		// 当前回合操作的用户
@@ -152,7 +152,7 @@ public class Map : MonoBehaviour
     /// </summary>
     private IEnumerator StartRound()
     {
-		yield return new WaitForSeconds(1.2f);
+		yield return new WaitForSeconds(.2f);
 		bgm = AudioManager.Instance.Play("bg", 1, true);
 		yield return new WaitForSeconds(1f);
 
@@ -237,7 +237,7 @@ public class Map : MonoBehaviour
         foreach (var u in users.Values)
         {
 			// 暂定
-            if (u.EnoughGold(goal))
+            if (u.Reach)
             {
 				winnerUser = u;
 				return true;

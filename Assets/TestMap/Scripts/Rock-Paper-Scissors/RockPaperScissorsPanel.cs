@@ -8,7 +8,7 @@ using DG.Tweening;
 /// <summary>
 /// 剪刀石头布界面
 /// </summary>
-public class RockPaperScissorsPanel : UIBase
+public class RockPaperScissorsPanel : UIBase, IGameCompleted
 {
     [SerializeField] Text p1Rock;
     [SerializeField] Text p1Paper;

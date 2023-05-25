@@ -25,8 +25,8 @@ namespace GameProject
 		private void StartGame()
 		{
 			// 打开开始界面
-			//UIManager.Instance.Open<StartPanel>();
-			Map.Load();
+			UIManager.Instance.Open<StartPanel>();
+			//Map.Load();
 		}
 		#endregion
 	}
