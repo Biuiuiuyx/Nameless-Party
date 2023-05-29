@@ -68,7 +68,7 @@ public class TipAction : Actionable
             yield break;
         }else if (g.Type == GridType.Game)
         {
-            int r = Random.GetValue(0, 4);
+            int r = Random.GetValue(0, 8);
             IGameCompleted p;
             switch (r)
             {
@@ -84,10 +84,23 @@ public class TipAction : Actionable
                 case 3:
                     p = UIManager.Instance.Open<StretchPanel>();
                     break;
+                case 4:
+                    p = UIManager.Instance.Open<ReactionSpeed2Panel>();
+                    break;
+                case 5:
+                    p = UIManager.Instance.Open<AnswerPanel>();
+                    break;
+                case 6:
+                    p = UIManager.Instance.Open<DodgePanel>();
+                    break;
+                case 7:
+                    p = UIManager.Instance.Open<ArrowPanel>();
+                    break;
                 default:
-                    p = UIManager.Instance.Open<StretchPanel>();
+                    p = UIManager.Instance.Open<DodgePanel>();
                     break;
             }
+            //p = UIManager.Instance.Open<ArrowPanel>();
             yield return new WaitUntil(() => p.Completed);
             Finish();
             yield break;

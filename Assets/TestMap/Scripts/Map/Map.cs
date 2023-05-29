@@ -94,6 +94,7 @@ public class Map : MonoBehaviour
 			instance.onChangeRound = null;
 			instance.onCamp = null;
 			instance = null;
+			Destroy(instance.gameObject);
         }
     }
 
@@ -170,6 +171,7 @@ public class Map : MonoBehaviour
 				// 当前操作方的剩余操作次数
 				remainStep = 1;
 				// 提示操作方
+				CameraFollow.Instance.SetTarget(CurUser.Chess.transform);
 				//Debug.Log($"<{u.Name}>的回合");
 				while (remainStep > 0)
 				{

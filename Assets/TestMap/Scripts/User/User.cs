@@ -23,6 +23,8 @@ public class User
 
     public Action<int> onChangeGold;
 
+    public UserChess Chess => chess;
+
     public User(Camp _camp, int _gridId, int _gold, UserChess _chess)
     {
         Camp = _camp;
