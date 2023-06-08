@@ -57,17 +57,30 @@ public static class GridTypeExtension
 		"空地","启动","退格","小游戏1","小游戏2","小游戏3","小游戏4","终点","随机游戏"
 	};
 
+	private static string[] imgs = new string[] 
+	{
+		"Empty",
+		"Empty",
+		"Back",
+		"Game",
+		"Game",
+		"Game",
+		"Game",
+		"Destination",
+		"Game",
+	};
+
 	private static Color[] colors = new Color[]
 	{
 		Color.white,
-		Color.green,
-		Color.red,
-		Color.blue,
-		Color.yellow,
-		Color.cyan,
-		Color.cyan,
-		new Color(.8f, 0, .8f, 1),
-		Color.yellow
+		Color.white,
+		Color.white,
+		Color.white,
+		Color.white,
+		Color.white,
+		Color.white,
+		Color.white,
+		Color.white
 	};
 
 	public static string Name(this GridType self)
@@ -78,5 +91,10 @@ public static class GridTypeExtension
 	public static Color GetColor(this GridType self)
     {
 		return colors[(int)self - 1];
+    }
+
+	public static string Image(this GridType self)
+    {
+		return imgs[(int)self - 1];
     }
 }

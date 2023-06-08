@@ -42,7 +42,7 @@ public class RandomPanel : UIBase
     /// </summary>
     public void SetCamp(Camp _camp)
     {
-        nameLabel.text = $"[{_camp}]的回合";
+        nameLabel.text = $"{_camp}'s turn";
         nameLabel.color = _camp.GetColor();
     }
 

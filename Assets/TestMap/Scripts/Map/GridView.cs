@@ -39,6 +39,7 @@ public class GridView : MonoBehaviour
     {
         if (render != null)
         {
+            render.sprite = Resources.Load<Sprite>($"Grid/{_type.Image()}");
             render.color = _type.GetColor();
         }
         //render.sprite = Resources.Load<Sprite>($"Grid/{_type}");
