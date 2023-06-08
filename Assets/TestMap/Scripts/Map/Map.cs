@@ -77,6 +77,7 @@ public class Map : MonoBehaviour
     private void Start()
     {
 		panel = UIManager.Instance.Open<MainPanel>();
+		CameraFollow.Instance.SetTarget(users[Camp.Player1].Chess.transform);
 		StartCoroutine(StartRound());
     }
 
@@ -93,8 +94,8 @@ public class Map : MonoBehaviour
 			instance.panel.CloseSelf(true);
 			instance.onChangeRound = null;
 			instance.onCamp = null;
-			instance = null;
 			Destroy(instance.gameObject);
+			instance = null;
         }
     }
 
