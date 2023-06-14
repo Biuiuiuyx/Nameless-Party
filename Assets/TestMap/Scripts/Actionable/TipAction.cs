@@ -68,7 +68,7 @@ public class TipAction : Actionable
             yield break;
         }else if (g.Type == GridType.Game)
         {
-            int r = Random.GetValue(0, 8);
+            int r = Random.GetValue(0, 9);
             IGameCompleted p;
             switch (r)
             {
@@ -96,6 +96,9 @@ public class TipAction : Actionable
                 case 7:
                     p = UIManager.Instance.Open<ArrowPanel>();
                     break;
+                case 8:
+                    p = UIManager.Instance.Open<PokerPanel>();
+                    break;
                 default:
                     p = UIManager.Instance.Open<DodgePanel>();
                     break;
@@ -111,6 +114,20 @@ public class TipAction : Actionable
             //{
             //    Finish();
             //});
+            Finish();
+            yield break;
+        }
+        else if (g.Type == GridType.Prop)
+        {
+            var p = UIManager.Instance.Open<PropPanel>();
+            yield return new WaitUntil(() => p.Completed);
+            Finish();
+            yield break;
+        }
+        else if (g.Type == GridType.RandGame)
+        {
+            var p = UIManager.Instance.Open<RandGamePanel>();
+            yield return new WaitUntil(() => p.Completed);
             Finish();
             yield break;
         }

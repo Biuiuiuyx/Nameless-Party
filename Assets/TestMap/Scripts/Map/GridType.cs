@@ -47,40 +47,39 @@ public enum GridType
 	/// <summary>
 	/// 随机游戏
 	/// </summary>
-	Game = 9
+	Game = 9,
+
+	/// <summary>
+	/// 随机道具
+	/// </summary>
+	Prop = 10,
+
+	/// <summary>
+	/// 随机游戏
+	/// </summary>
+	RandGame=11,
 }
 
 public static class GridTypeExtension
 {
 	private static string[] names = new string[]
 	{
-		"空地","启动","退格","小游戏1","小游戏2","小游戏3","小游戏4","终点","随机游戏"
-	};
-
-	private static string[] imgs = new string[] 
-	{
-		"Empty",
-		"Empty",
-		"Back",
-		"Game",
-		"Game",
-		"Game",
-		"Game",
-		"Destination",
-		"Game",
+		"空地","启动","退格","小游戏1","小游戏2","小游戏3","小游戏4","终点","随机游戏","随机道具","随机游戏"
 	};
 
 	private static Color[] colors = new Color[]
 	{
 		Color.white,
-		Color.white,
-		Color.white,
-		Color.white,
-		Color.white,
-		Color.white,
-		Color.white,
-		Color.white,
-		Color.white
+		Color.green,
+		Color.red,
+		Color.blue,
+		Color.yellow,
+		Color.cyan,
+		Color.cyan,
+		new Color(.8f, 0, .8f, 1),
+		Color.yellow,
+		Color.yellow,
+		Color.gray,
 	};
 
 	public static string Name(this GridType self)
@@ -91,10 +90,5 @@ public static class GridTypeExtension
 	public static Color GetColor(this GridType self)
     {
 		return colors[(int)self - 1];
-    }
-
-	public static string Image(this GridType self)
-    {
-		return imgs[(int)self - 1];
     }
 }

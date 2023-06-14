@@ -24,7 +24,7 @@ public class GameOverPanel : UIBase
 
     public void ShowWinner(User _winner)
     {
-        title.text = $"<{_winner.Name}> is the winner！";
+        title.text = $"<{_winner.Name}>获得最终的胜利！";
     }
 
     private void ToRestart()
