@@ -1,4 +1,4 @@
-ï»¿using Framework;
+using Framework;
 using GameProject;
 using System;
 using System.Collections;
@@ -7,21 +7,21 @@ using UnityEngine;
 using Rd = GameProject.Random;
 
 /// <summary>
-/// åœ°å›¾
+/// µØÍ¼
 /// </summary>
 public class Map : MonoBehaviour
 {
-    [SerializeField] Transform gridContainer;       // æ ¼å­å®¹å™¨
-    [SerializeField] Grid origins;                  // èµ·ç‚¹
+    [SerializeField] Transform gridContainer;       // ¸ñ×ÓÈİÆ÷
+    [SerializeField] Grid origins;                  // Æğµã
 	[SerializeField] Transform chessContainer;
-	//[SerializeField] int goal = 3500;				// èƒœåˆ©ç›®æ ‡é‡‘é¢
+	//[SerializeField] int goal = 3500;				// Ê¤ÀûÄ¿±ê½ğ¶î
 
-    public int CurRound { get; private set; }       // å½“å‰å›åˆæ•°
-    public User CurUser { get; private set; }		// å½“å‰å›åˆæ“ä½œçš„ç”¨æˆ·
+    public int CurRound { get; private set; }       // µ±Ç°»ØºÏÊı
+    public User CurUser { get; private set; }		// µ±Ç°»ØºÏ²Ù×÷µÄÓÃ»§
 	public int CurDice { get; private set; }
 
-    private Dictionary<int, Grid> grids;            // æ‰€æœ‰æ ¼å­
-	private Dictionary<Camp, User> users;           // æ‰€æœ‰ç”¨æˆ·
+    private Dictionary<int, Grid> grids;            // ËùÓĞ¸ñ×Ó
+	private Dictionary<Camp, User> users;           // ËùÓĞÓÃ»§
 	private int curId = 0;
 	private int remainStep = 1;
 	private IAudioPlayer bgm;
@@ -40,7 +40,7 @@ public class Map : MonoBehaviour
         }
     }
 
-    private static Map instance;                    // å•ä¾‹
+    private static Map instance;                    // µ¥Àı
     public static Map Instance => instance;
 
     public Action<int> onChangeRound;
@@ -48,19 +48,19 @@ public class Map : MonoBehaviour
 
     private void Awake()
     {
-        // åˆå§‹åŒ–æ‰€æœ‰çš„æ ¼å­
+        // ³õÊ¼»¯ËùÓĞµÄ¸ñ×Ó
         Grid[] gs = gridContainer.GetComponentsInChildren<Grid>();
         grids = new Dictionary<int, Grid>(gs.Length);
         foreach (var g in gs)
         {
-            Debug.Assert(!grids.ContainsKey(g.GridId), $"{g.GridId}é‡å¤äº†!");
+            Debug.Assert(!grids.ContainsKey(g.GridId), $"{g.GridId}ÖØ¸´ÁË!");
             grids.Add(g.GridId, g);
         }
 
         CurRound = 0;
         instance = this;
 
-		// åˆå§‹åŒ–2ä¸ªç”¨æˆ·
+		// ³õÊ¼»¯2¸öÓÃ»§
 		int count = 2;
 		users = new Dictionary<Camp, User>(count);
 		for (int i = 0; i < count; i++)
@@ -99,7 +99,7 @@ public class Map : MonoBehaviour
     }
 
     /// <summary>
-    /// æŸ¥è¯¢æ ¼å­
+    /// ²éÑ¯¸ñ×Ó
     /// </summary>
     public Grid GetGrid(int _gid)
     {
@@ -108,7 +108,7 @@ public class Map : MonoBehaviour
     }
 
 	/// <summary>
-	/// æŸ¥æ‰¾ä¸Šä¸€ä¸ªæ ¼å­
+	/// ²éÕÒÉÏÒ»¸ö¸ñ×Ó
 	/// </summary>
 	/// <param name="_gid"></param>
 	/// <returns></returns>
@@ -125,7 +125,7 @@ public class Map : MonoBehaviour
     }
 
 	/// <summary>
-	/// æŸ¥è¯¢ç”¨æˆ·
+	/// ²éÑ¯ÓÃ»§
 	/// </summary>
 	public User GetUser(Camp _camp)
     {
@@ -134,13 +134,13 @@ public class Map : MonoBehaviour
     }
 
 	/// <summary>
-	/// æ‘‡éª°å­
+	/// Ò¡÷»×Ó
 	/// </summary>
 	public int PlayDice(Camp _user)
     {
         if (CurUser.Camp != _user)
         {
-			UIWarn.Instance.ShowWarn($"å½“å‰ä¸æ˜¯<{_user.Name()}>çš„å›åˆ");
+			UIWarn.Instance.ShowWarn($"µ±Ç°²»ÊÇ<{_user.Name()}>µÄ»ØºÏ");
 			return 0;
         }
 
@@ -149,7 +149,7 @@ public class Map : MonoBehaviour
     }
 
     /// <summary>
-    /// å›åˆå¼€å§‹
+    /// »ØºÏ¿ªÊ¼
     /// </summary>
     private IEnumerator StartRound()
     {
@@ -157,42 +157,42 @@ public class Map : MonoBehaviour
 		bgm = AudioManager.Instance.Play("bg", 1, true);
 		yield return new WaitForSeconds(1f);
 
-		// å¾ªç¯ç›´åˆ°ä¸€æ–¹èƒœå‡ºç»“æŸ
+		// Ñ­»·Ö±µ½Ò»·½Ê¤³ö½áÊø
 		User winner;
 		while (!IsFinish(out winner))
 		{
 			CurRound++;
 			onChangeRound?.Invoke(CurRound);
-			// æ¯ä¸€å›åˆéå†æ‰€æœ‰ç”¨æˆ·
+			// Ã¿Ò»»ØºÏ±éÀúËùÓĞÓÃ»§
 			foreach (var u in users.Values)
 			{
 				CurUser = u;
 				onCamp?.Invoke(u.Camp);
-				// å½“å‰æ“ä½œæ–¹çš„å‰©ä½™æ“ä½œæ¬¡æ•°
+				// µ±Ç°²Ù×÷·½µÄÊ£Óà²Ù×÷´ÎÊı
 				remainStep = 1;
-				// æç¤ºæ“ä½œæ–¹
+				// ÌáÊ¾²Ù×÷·½
 				CameraFollow.Instance.SetTarget(CurUser.Chess.transform);
-				//Debug.Log($"<{u.Name}>çš„å›åˆ");
+				//Debug.Log($"<{u.Name}>µÄ»ØºÏ");
 				while (remainStep > 0)
 				{
-					// å¾ªç¯ç›´åˆ°æ‰€æœ‰çš„æ­¥éª¤ç»“æŸ
-					// æ­¥éª¤æ˜¯æœ‰é¡ºåºçš„ï¼Œç­‰å¾… -> æ‘‡éª°å­ -> ç§»åŠ¨ -> å®Œæˆï¼Œå®Œæˆåé‡ç½®ä¸ºç­‰å¾…
+					// Ñ­»·Ö±µ½ËùÓĞµÄ²½Öè½áÊø
+					// ²½ÖèÊÇÓĞË³ĞòµÄ£¬µÈ´ı -> Ò¡÷»×Ó -> ÒÆ¶¯ -> Íê³É£¬Íê³ÉºóÖØÖÃÎªµÈ´ı
 					while (u.Step != UserStep.Completed)
 					{
 						if (u.StopRound <= 0)
                         {
 							if (u.Step == UserStep.PlayDice || u.Step == UserStep.Move || u.Step == UserStep.Tip)
 							{
-								// è·å–actionableï¼Œæ‰§è¡Œæ­¥éª¤
+								// »ñÈ¡actionable£¬Ö´ĞĞ²½Öè
 								var action = u.GetActionable();
 								action.TakeTurn();
-								// ç­‰å¾…æ­¥éª¤æ‰§è¡Œå®Œæˆ
+								// µÈ´ı²½ÖèÖ´ĞĞÍê³É
 								yield return new WaitUntil(() => action.Completed);
-								// æ­¥éª¤å®Œæˆåé‡ç½®æ­¥éª¤ç”¨äºä¸‹ä¸€å›åˆ
+								// ²½ÖèÍê³ÉºóÖØÖÃ²½ÖèÓÃÓÚÏÂÒ»»ØºÏ
 								action.Reset();
 							}
 
-							// åˆ‡æ¢ä¸‹ä¸€ä¸ªæ­¥éª¤
+							// ÇĞ»»ÏÂÒ»¸ö²½Öè
 							u.NextStep();
                         }
                         else
@@ -203,22 +203,22 @@ public class Map : MonoBehaviour
                         }
 						
 					}
-					// æ“ä½œå®Œæˆï¼Œå‰©ä½™æ¬¡æ•°å‡ä¸€
+					// ²Ù×÷Íê³É£¬Ê£Óà´ÎÊı¼õÒ»
 					remainStep--;
 					if (remainStep > 0)
 					{
-						// å¦‚æœè¿˜æœ‰å‰©ä½™æ¬¡æ•°ï¼Œç›´æ¥è·³åˆ°ç­‰å¾…
+						// Èç¹û»¹ÓĞÊ£Óà´ÎÊı£¬Ö±½ÓÌøµ½µÈ´ı
 						u.ToStep(UserStep.Wait);
 					}
 				}
-				// è¯¥ç”¨æˆ·çš„å›åˆç»“æŸ
-				// é‡ç½®åˆ°ç­‰å¾…æ­¥éª¤
+				// ¸ÃÓÃ»§µÄ»ØºÏ½áÊø
+				// ÖØÖÃµ½µÈ´ı²½Öè
 				u.ToStep(UserStep.Wait);
 
-				// æ£€æŸ¥æ˜¯å¦ç»“æŸ
+				// ¼ì²éÊÇ·ñ½áÊø
 				if (IsFinish(out var w))
 				{
-					// å¦‚æœç»“æŸï¼Œè¿™ä¸€å›åˆåé¢çš„éƒ½ä¸ç”¨æ“ä½œäº†ï¼Œè·³å‡º
+					// Èç¹û½áÊø£¬ÕâÒ»»ØºÏºóÃæµÄ¶¼²»ÓÃ²Ù×÷ÁË£¬Ìø³ö
 					break;
 				}
 			}
@@ -226,19 +226,19 @@ public class Map : MonoBehaviour
 
 		yield return new WaitForSeconds(1);
 		bgm.Stop();
-		// æç¤ºèƒœæ–¹
+		// ÌáÊ¾Ê¤·½
 		UIManager.Instance.Open<GameOverPanel>().ShowWinner(winner);
 	}
 
     /// <summary>
-    /// æ£€æŸ¥æ˜¯å¦æ¸¸æˆç»“æŸ
+    /// ¼ì²éÊÇ·ñÓÎÏ·½áÊø
     /// </summary>
-    /// <param name="winnerUserId">èƒœåˆ©ç©å®¶id</param>
+    /// <param name="winnerUserId">Ê¤ÀûÍæ¼Òid</param>
     private bool IsFinish(out User winnerUser)
     {
         foreach (var u in users.Values)
         {
-			// æš‚å®š
+			// Ôİ¶¨
             if (u.Reach)
             {
 				winnerUser = u;

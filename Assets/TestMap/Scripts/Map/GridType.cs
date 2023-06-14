@@ -47,7 +47,17 @@ public enum GridType
 	/// <summary>
 	/// 随机游戏
 	/// </summary>
-	Game = 9
+	Game = 9,
+
+	/// <summary>
+	/// 随机道具
+	/// </summary>
+	Prop = 10,
+
+	/// <summary>
+	/// 随机游戏
+	/// </summary>
+	RandGame=11,
 }
 
 public static class GridTypeExtension

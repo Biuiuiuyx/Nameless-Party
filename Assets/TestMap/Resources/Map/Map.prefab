@@ -20550,7 +20550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gid: 2
-  type: 1
+  type: 9
   nextId: 3
   value: 1
 --- !u!114 &4009940101326717328
